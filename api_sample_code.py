@@ -37,7 +37,7 @@ def get_and_dump_data():
         df = df[['name', 'symbol', 'current_price', 'market_cap', 'total_volume', 'last_updated']]
 
         # --- GOOGLE SHEETS DUMP ---
-        spreadsheet_id = "1RZ1_bAxhv4Nannl1v5DsY8Dpu6JmAYY2eC95kUHUeSI"
+        spreadsheet_id = "1WF4ibJp6z-3VuFupw_AhMNKI_P7LlpLr-Q123HEaJt4"
         spreadsheet = gc.open_by_key(spreadsheet_id)
 
         try:
