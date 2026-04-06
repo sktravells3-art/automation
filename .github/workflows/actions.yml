@@ -3,7 +3,7 @@ name: Sales Dump Update <> 30 Min
 on:
   schedule:
     # Runs every 30 minutes
-    - cron: '*/30 * * * *'
+    - cron: '*/2 * * * *'
   workflow_dispatch: # Allows you to click a button to run it manually
 
 jobs:
