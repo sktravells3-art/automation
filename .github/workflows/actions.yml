@@ -31,5 +31,5 @@ jobs:
         env:
           # This maps your GitHub Secret to an Environment Variable the Python script can read
           GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-          SID: ${{ secrets.SID }}
+          # SID: ${{ secrets.SID }}
         run: python api_sample_code.py  # 
