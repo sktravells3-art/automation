@@ -1,0 +1,35 @@
+name: Sales Dump Update <> 30 Min
+
+on:
+  schedule:
+    # Runs every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # Allows you to click a button to run it manually
+
+jobs:
+  sync-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Pull your code from GitHub onto the runner
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Install Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3. Install the specific libraries your script needs
+      - name: Install Dependencies
+        run: |
+          pip install requests pandas gspread gspread-dataframe google-auth
+
+      # 4. Run the script and pass the Secret as an Environment Variable
+      - name: Run Sync Script
+        env:
+          # This maps your GitHub Secret to an Environment Variable the Python script can read
+          GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          SID: ${{ secrets.SID }}
+        run: python api_sample_code.py  # 
