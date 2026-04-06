@@ -3,7 +3,7 @@ import pandas as pd
 import gspread
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import set_with_dataframe
 
@@ -60,20 +60,21 @@ def get_and_dump_data():
         # Get column A values
         col_a = log_sheet.col_values(1)
 
-        # Add header if sheet is empty
+        # Add header if empty
         if not col_a:
-            log_sheet.update("A1", [["Timestamp"]])
+            log_sheet.update("A1", [["Timestamp (IST)"]])
             next_row = 2
         else:
             next_row = len(col_a) + 1
 
-        # Current timestamp
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # --- IST TIME FIX ---
+        ist = timezone(timedelta(hours=5, minutes=30))
+        current_time = datetime.now(ist).strftime("%Y-%m-%d %H:%M:%S")
 
         # Write timestamp
         log_sheet.update(f"A{next_row}", [[current_time]])
 
-        print("✅ Success! API data + timestamp logged.")
+        print("✅ Success! API data + IST timestamp logged.")
 
     except Exception as e:
         print(f"❌ Error occurred: {e}")
